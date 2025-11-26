@@ -13,9 +13,8 @@ export const TalentTypeSelection: React.FC = () => {
 
   const handleSelection = (type: "solo" | "agency") => {
     setSelectedType(type);
-    // Auto-navigate after selection
     setTimeout(() => {
-      navigate("/talent/onboarding/profile", { state: { email, type } });
+      navigate("/talent/profile", { state: { email, type } });
     }, 300);
   };
 

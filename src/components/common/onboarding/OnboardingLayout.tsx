@@ -6,6 +6,7 @@ import loginScreenImage from "@/assets/login-screen.svg";
 interface Step {
   id: number;
   title: string;
+  desc: string;
 }
 
 interface OnboardingLayoutProps {
@@ -46,7 +47,7 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
 
           {/* Step Indicator - Centered vertically */}
           {showSteps && (
-            <div className="flex-1 flex items-center py-12">
+            <div className="flex-1 flex py-12">
               <StepIndicator steps={steps} currentStep={currentStep} />
             </div>
           )}
