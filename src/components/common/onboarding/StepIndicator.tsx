@@ -59,7 +59,7 @@ export const StepIndicator: React.FC<StepIndicatorProps> = ({
 
             {/* Progress Line */}
             {!isLast && (
-              <div className="absolute left-5 top-15 w-0.5 h-10 -translate-x-1/2 bg-white" />
+              <div className="absolute left-5 top-16 w-0.5 h-10 -translate-x-1/2 bg-white" />
             )}
           </div>
         );

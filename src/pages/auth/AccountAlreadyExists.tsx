@@ -42,22 +42,22 @@ export const AccountAlreadyExists: React.FC = () => {
   return (
     <OnboardingLayout currentStep={1} steps={[]}>
       <OnboardingFormContainer>
-        <div className="space-y-6">
-          {/* Back Button */}
-          <button
-            onClick={handleBack}
-            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 -ml-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
-          </button>
-
+        <div className="w-full max-w-md mx-auto space-y-6">
           {/* Title */}
           <div>
             <h1 className="text-2xl font-bold text-gray-900">
               Seems like you are already registered.
             </h1>
           </div>
+
+          {/* Back Button */}
+          <button
+            onClick={handleBack}
+            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back
+          </button>
 
           {/* Form */}
           <div className="space-y-4">
@@ -69,7 +69,7 @@ export const AccountAlreadyExists: React.FC = () => {
                 id="email"
                 type="email"
                 value={email}
-                disabled
+                placeholder="example@example.com"
                 className="w-full bg-gray-50"
               />
             </div>
@@ -82,7 +82,7 @@ export const AccountAlreadyExists: React.FC = () => {
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="········"
+                  placeholder="* * * * * *"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full pr-10"

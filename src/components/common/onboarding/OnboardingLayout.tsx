@@ -20,7 +20,6 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
   currentStep,
   steps,
 }) => {
-  // Only show step indicator if there are multiple steps
   const showSteps = steps.length > 1;
 
   return (
@@ -34,9 +33,7 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
           backgroundPosition: 'center',
         }}
       >
-        {/* Content */}
         <div className="relative z-10 flex flex-col h-full">
-          {/* Logo */}
           <div className="flex items-center gap-2 mb-auto">
             <img
               src={logoImage}
@@ -44,8 +41,6 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
               className="h-12 w-12 rounded-lg object-cover bg-white p-1"
             />
           </div>
-
-          {/* Step Indicator - Centered vertically */}
           {showSteps && (
             <div className="flex-1 flex py-12">
               <div className="max-w-[352px]">
@@ -57,8 +52,20 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
       </div>
 
       {/* Right Panel - Form Content */}
-      <div className="flex flex-1 bg-gray-50 p-8">
-        {children}
+      <div className="flex-1 bg-gray-50 flex flex-col">
+        {/* Main Content Area - Centered */}
+        <div className="flex-1 flex items-center justify-center p-8">
+          <div className="max-w-[360px] w-full">
+            {children}
+          </div>
+        </div>
+
+        {/* Footer - At Bottom */}
+        <div className="p-8 pt-0">
+          <div className="text-sm text-gray-500">
+            ©Quantom 2023
+          </div>
+        </div>
       </div>
     </div>
   );

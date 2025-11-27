@@ -17,9 +17,9 @@ export const OnboardingFormContainer: React.FC<OnboardingFormContainerProps> = (
       </div>
 
       {/* Footer - Absolute left with padding */}
-      <div className="text-sm text-gray-500 pl-8">
+      {/* <div className="text-sm text-gray-500 pl-8">
         ©Quantom 2023
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -7,44 +7,54 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, X } from "lucide-react";
 
-const PROFILE_STEPS = [
-  { id: 1, title: "Let's get started", desc: "Add information about you and the company you are signing up for" },
+const AGENCY_STEPS = [
+  { id: 1, title: "Let's get started", desc: "Add information about your agency" },
   { id: 2, title: "Create your password", desc: "optional" },
   { id: 3, title: "Verify your email", desc: "optional" },
 ];
 
-export const TalentProfileForm: React.FC = () => {
+export const AgencyProfileForm: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const email = location.state?.email || "";
-  // const talentType = location.state?.type || "solo";
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [showTermsAlert, setShowTermsAlert] = useState(false);
 
   const [formData, setFormData] = useState({
     email: email,
-    firstName: "",
-    lastName: "",
-    mainSkill: "",
-    portfolio: "",
+    agencyName: "",
+    contactPerson: "",
+    mainService: "",
+    website: "",
     phoneNumber: "",
     agreedToTerms: false,
     password: "",
     confirmPassword: "",
-    verificationCode: "",
   });
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+
+    // Hide alert when user checks the terms checkbox
+    if (field === "agreedToTerms" && value === true) {
+      setShowTermsAlert(false);
+    }
   };
 
   const handleStep1Next = () => {
-    if (!formData.firstName || !formData.lastName || !formData.mainSkill || !formData.agreedToTerms) {
-      alert("Please fill in all required fields and agree to terms");
+    if (!formData.agencyName || !formData.contactPerson || !formData.mainService) {
+      alert("Please fill in all required fields");
       return;
     }
+
+    if (!formData.agreedToTerms) {
+      setShowTermsAlert(true);
+      return;
+    }
+
     setCurrentStep(2);
   };
 
@@ -61,12 +71,7 @@ export const TalentProfileForm: React.FC = () => {
   };
 
   const handleStep3Submit = () => {
-    if (!formData.verificationCode || formData.verificationCode.length !== 6) {
-      alert("Please enter the 6-digit verification code");
-      return;
-    }
-    // TODO: Submit to API
-    console.log("Form submitted:", formData);
+    console.log("Agency form submitted:", formData);
     navigate("/talent/dashboard");
   };
 
@@ -76,20 +81,18 @@ export const TalentProfileForm: React.FC = () => {
 
   const handleResendCode = () => {
     console.log("Resending verification code to:", formData.email);
-    // TODO: Call resend API
   };
 
   return (
-    <OnboardingLayout currentStep={currentStep} steps={PROFILE_STEPS}>
+    <OnboardingLayout currentStep={currentStep} steps={AGENCY_STEPS}>
       <OnboardingFormContainer>
-        {/* Step 1: Profile Information */}
+        {/* Step 1: Agency Information */}
         {currentStep === 1 && (
           <div className="space-y-6">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Let's get started</h1>
               <p className="mt-2 text-sm text-gray-600">
-                Add information about you and the company <br/>
-                you are signing up for
+                Add information about your agency
               </p>
             </div>
 
@@ -120,65 +123,64 @@ export const TalentProfileForm: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName" className="text-sm font-medium text-gray-900">
-                    First name
-                  </Label>
-                  <Input
-                    id="firstName"
-                    type="text"
-                    placeholder="First name"
-                    value={formData.firstName}
-                    onChange={(e) => handleInputChange("firstName", e.target.value)}
-                    className="w-full"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="lastName" className="text-sm font-medium text-gray-900">
-                    Last name
-                  </Label>
-                  <Input
-                    id="lastName"
-                    type="text"
-                    placeholder="Last name"
-                    value={formData.lastName}
-                    onChange={(e) => handleInputChange("lastName", e.target.value)}
-                    className="w-full"
-                  />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="agencyName" className="text-sm font-medium text-gray-900">
+                  Agency Name
+                </Label>
+                <Input
+                  id="agencyName"
+                  type="text"
+                  placeholder="Enter agency name"
+                  value={formData.agencyName}
+                  onChange={(e) => handleInputChange("agencyName", e.target.value)}
+                  className="w-full"
+                />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="mainSkill" className="text-sm font-medium text-gray-900">
-                  Main Skill
+                <Label htmlFor="contactPerson" className="text-sm font-medium text-gray-900">
+                  Contact Person
+                </Label>
+                <Input
+                  id="contactPerson"
+                  type="text"
+                  placeholder="Full name"
+                  value={formData.contactPerson}
+                  onChange={(e) => handleInputChange("contactPerson", e.target.value)}
+                  className="w-full"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="mainService" className="text-sm font-medium text-gray-900">
+                  Main Service
                 </Label>
                 <Select
-                  value={formData.mainSkill}
-                  onValueChange={(value) => handleInputChange("mainSkill", value)}
+                  value={formData.mainService}
+                  onValueChange={(value) => handleInputChange("mainService", value)}
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Pentester" />
+                    <SelectValue placeholder="Select service" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="pentester">Pentester</SelectItem>
-                    <SelectItem value="developer">Developer</SelectItem>
-                    <SelectItem value="designer">Designer</SelectItem>
-                    <SelectItem value="manager">Project Manager</SelectItem>
+                    <SelectItem value="security">Security Services</SelectItem>
+                    <SelectItem value="development">Development</SelectItem>
+                    <SelectItem value="design">Design</SelectItem>
+                    <SelectItem value="consulting">Consulting</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="portfolio" className="text-sm font-medium text-gray-700">
-                  Portfolio <span className="text-gray-400">(Optional)</span>
+                <Label htmlFor="website" className="text-sm font-medium text-gray-700">
+                  Website <span className="text-gray-400">(Optional)</span>
                 </Label>
                 <Input
-                  id="portfolio"
+                  id="website"
                   type="url"
                   placeholder="www.example.com"
-                  value={formData.portfolio}
-                  onChange={(e) => handleInputChange("portfolio", e.target.value)}
+                  value={formData.website}
+                  onChange={(e) => handleInputChange("website", e.target.value)}
                   className="w-full"
                 />
               </div>
@@ -190,7 +192,7 @@ export const TalentProfileForm: React.FC = () => {
                 <Input
                   id="phoneNumber"
                   type="tel"
-                  placeholder="example@example.com"
+                  placeholder="+1 (555) 000-0000"
                   value={formData.phoneNumber}
                   onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
                   className="w-full"
@@ -217,9 +219,37 @@ export const TalentProfileForm: React.FC = () => {
               </div>
             </div>
 
+
+            {/* Terms Alert */}
+            {showTermsAlert && (
+              <div className="relative p-4 bg-orange-50 border border-yellow-400 rounded-lg">
+                {/* <button
+                  onClick={() => setShowTermsAlert(false)}
+                  className="absolute top-3 right-3 text-orange-600 hover:text-orange-800"
+                >
+                  <X className="w-4 h-4" />
+                </button> */}
+                <div className="pr-6">
+                  <h3 className="text-base font-bold text-[#B54708]">
+                    Seems like you are forgot one important thing
+                  </h3>
+                  <p className="text-sm text-[#B54708] mt-2">
+                    In order to continue registering on our platform, you must agree with the{" "}
+                    <a href="/terms" className="font-bold underline hover:no-underline">
+                      Terms
+                    </a>{" "}
+                    and{" "}
+                    <a href="/conditions" className="font-bold underline hover:no-underline">
+                      Conditions
+                    </a>
+                    .
+                  </p>
+                </div>
+              </div>
+            )}
+
             <Button
               onClick={handleStep1Next}
-              disabled={!formData.agreedToTerms}
               className="w-full bg-primary hover:bg-primary/90"
             >
               Next
@@ -230,15 +260,19 @@ export const TalentProfileForm: React.FC = () => {
         {/* Step 2: Create Password */}
         {currentStep === 2 && (
           <div className="space-y-6">
+            <button
+              onClick={() => setCurrentStep(1)}
+              className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 -ml-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </button>
+
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Create your password</h1>
-              <button
-                onClick={() => setCurrentStep(1)}
-                className="flex items-center gap-1 text-sm text-gray-600 hover:text-gray-900 mt-4"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back
-              </button>
+              <p className="mt-2 text-sm text-gray-600">
+                Optional
+              </p>
             </div>
 
             <div className="space-y-4">
@@ -287,15 +321,16 @@ export const TalentProfileForm: React.FC = () => {
         {/* Step 3: Email Verification */}
         {currentStep === 3 && (
           <div className="space-y-6">
+            <button
+              onClick={() => setCurrentStep(2)}
+              className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 -ml-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back
+            </button>
+
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Almost there</h1>
-              <button
-                onClick={() => setCurrentStep(2)}
-                className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 mt-4"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back
-              </button>
             </div>
 
             <div className="max-w-md mx-auto">

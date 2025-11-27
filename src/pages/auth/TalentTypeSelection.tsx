@@ -8,13 +8,16 @@ export const TalentTypeSelection: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const email = location.state?.email || "";
-
   const [selectedType, setSelectedType] = useState<"solo" | "agency" | null>(null);
 
   const handleSelection = (type: "solo" | "agency") => {
     setSelectedType(type);
     setTimeout(() => {
-      navigate("/talent/profile", { state: { email, type } });
+      if (type === "agency") {
+        navigate("/talent/agency-profile", { state: { email, type } });
+      } else {
+        navigate("/talent/profile", { state: { email, type } });
+      }
     }, 300);
   };
 
