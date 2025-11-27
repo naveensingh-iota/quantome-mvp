@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { TalentOnboarding } from "./pages/auth/TalentOnboarding";
 import { TalentTypeSelection } from "./pages/auth/TalentTypeSelection";
 import { TalentProfileForm } from "./pages/talent/TalentProfileForm";
+import { AccountAlreadyExists } from "./pages/auth/AccountAlreadyExists";
 import { BuyerOnboarding } from "./pages/auth/BuyerOnboarding";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Route path="/talent/login" element={<TalentOnboarding />} />
         <Route path="/talent/type-selection" element={<TalentTypeSelection />} />
         <Route path="/talent/profile" element={<TalentProfileForm />} />
+        <Route path="/talent/account-exists" element={<AccountAlreadyExists />} />
 
         {/* Buyer Flow */}
         <Route path="/buyer/login" element={<BuyerOnboarding />} />

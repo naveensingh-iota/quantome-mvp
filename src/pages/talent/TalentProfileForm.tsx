@@ -12,7 +12,7 @@ import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 const PROFILE_STEPS = [
   { id: 1, title: "Let's get started", desc: "Add information about you and the company you are signing up for" },
   { id: 2, title: "Create your password", desc: "optional" },
-  { id: 3, title: "Verify your email", desc: "optional"},
+  { id: 3, title: "Verify your email", desc: "optional" },
 ];
 
 export const TalentProfileForm: React.FC = () => {
@@ -90,7 +90,8 @@ export const TalentProfileForm: React.FC = () => {
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Let's get started</h1>
               <p className="mt-2 text-sm text-gray-600">
-                Add information about you and the company you are signing up for
+                Add information about you and the company <br/>
+                you are signing up for
               </p>
             </div>
 

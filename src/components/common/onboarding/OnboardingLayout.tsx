@@ -27,7 +27,7 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
     <div className="flex min-h-screen">
       {/* Left Panel - Background Image */}
       <div
-        className="hidden w-5/12 bg-cover bg-center p-8 lg:flex lg:flex-col relative"
+        className="hidden md:flex md:w-5/12 md:flex-col bg-cover bg-center p-8 relative max-w-[464px]"
         style={{
           backgroundImage: `url(${loginScreenImage})`,
           backgroundSize: 'cover',
@@ -48,7 +48,9 @@ export const OnboardingLayout: React.FC<OnboardingLayoutProps> = ({
           {/* Step Indicator - Centered vertically */}
           {showSteps && (
             <div className="flex-1 flex py-12">
-              <StepIndicator steps={steps} currentStep={currentStep} />
+              <div className="max-w-[352px]">
+                <StepIndicator steps={steps} currentStep={currentStep} />
+              </div>
             </div>
           )}
         </div>
