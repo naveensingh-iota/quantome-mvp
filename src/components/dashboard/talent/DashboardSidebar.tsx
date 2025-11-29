@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Users, Briefcase, Calendar, Settings, LogOut } from "lucide-react";
+import { Home, Search, HelpCircle, Briefcase, Puzzle, Layers, MessageCircle, User, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
-import logoImage from "@/assets/logo.jpg";
+import logo from "@/assets/logo.jpg";
 
 interface SidebarProps {
   userRole?: "talent" | "buyer";
@@ -13,10 +13,13 @@ export const DashboardSidebar: React.FC<SidebarProps> = ({ userRole = "talent" }
   const location = useLocation();
 
   const navigation = [
-    { name: "Dashboard", icon: Home, path: `/${userRole}/dashboard` },
+    { name: "Search", icon: Search, path: `/${userRole}/search` },
+    { name: "Home", icon: Home, path: `/${userRole}/dashboard` },
+    { name: "Help", icon: HelpCircle, path: `/${userRole}/help` },
     { name: "Projects", icon: Briefcase, path: `/${userRole}/projects` },
-    { name: "Team", icon: Users, path: `/${userRole}/team` },
-    { name: "Calendar", icon: Calendar, path: `/${userRole}/calendar` },
+    { name: "Puzzle", icon: Puzzle, path: `/${userRole}/puzzle` },
+    { name: "Layers", icon: Layers, path: `/${userRole}/layers` },
+    { name: "Messages", icon: MessageCircle, path: `/${userRole}/messages` },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -29,14 +32,14 @@ export const DashboardSidebar: React.FC<SidebarProps> = ({ userRole = "talent" }
         className="mb-8"
       >
         <img
-          src={logoImage}
+          src={logo}
           alt="Logo"
-          className="h-10 w-10 rounded-lg object-cover"
+          className="h-10 w-10"
         />
       </button>
 
       {/* Navigation Items */}
-      <div className="flex-1 flex flex-col space-y-2">
+      <div className="flex-1 flex flex-col space-y-4">
         {navigation.map((item) => (
           <button
             key={item.name}
@@ -55,13 +58,13 @@ export const DashboardSidebar: React.FC<SidebarProps> = ({ userRole = "talent" }
       </div>
 
       {/* Bottom Actions */}
-      <div className="flex flex-col space-y-2">
+      <div className="flex flex-col space-y-4">
         <button
-          onClick={() => navigate(`/${userRole}/settings`)}
+          onClick={() => navigate(`/${userRole}/profile`)}
           className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
-          title="Settings"
+          title="Profile"
         >
-          <Settings className="w-5 h-5" />
+          <User className="w-5 h-5" />
         </button>
         <button
           onClick={() => navigate("/login")}
