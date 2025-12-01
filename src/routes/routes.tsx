@@ -15,6 +15,12 @@ import { TalentDashboard } from "@/pages/talent/TalentDashboard";
 
 // Buyer Pages
 import { BuyerDashboard } from "@/pages/buyer/BuyerDashboard";
+import { TalentSettings } from "@/pages/talent/settings/TalentSettings";
+import { AccountSettings } from "@/pages/talent/settings/AccountSettings";
+import { NotificationSettings } from "@/pages/talent/settings/NotificationSettings";
+import {PaymentSettings} from "@/pages/talent/settings/PaymentSettings";
+import { SecuritySettings } from "@/pages/talent/settings/SecuritySettings";
+import { TeamSettings } from "@/pages/talent/settings/TeamSettings";
 
 export const AppRoutes: React.FC = () => {
   return (
@@ -29,6 +35,12 @@ export const AppRoutes: React.FC = () => {
       <Route path="/talent/agency-profile" element={<AgencyProfileForm />} />
       <Route path="/talent/account-exists" element={<AccountAlreadyExists />} />
       <Route path="/talent/dashboard" element={<TalentDashboard />} />
+      <Route path="/talent/settings" element={<TalentSettings />} />
+      <Route path="/talent/settings/account" element={<AccountSettings />} />
+      <Route path="/talent/settings/notifications" element={<NotificationSettings />} />
+      <Route path="/talent/settings/payments" element={<PaymentSettings />} />
+      <Route path="/talent/settings/security" element={<SecuritySettings />} />
+      <Route path="/talent/settings/team" element={<TeamSettings />} />
 
       {/* Buyer Flow */}
       <Route path="/buyer/login" element={<BuyerOnboarding />} />

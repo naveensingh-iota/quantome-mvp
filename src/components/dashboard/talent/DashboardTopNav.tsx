@@ -1,6 +1,3 @@
-// ============================================
-// FILE: src/components/dashboard/DashboardTopNav.tsx
-// ============================================
 import React from "react";
 import { ChevronRight, LayoutDashboard, Home, Search, ChevronsRight } from "lucide-react";
 import sisyphusLogo from "@/assets/sisyphus-logo.svg";

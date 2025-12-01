@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Search, HelpCircle, Briefcase, Puzzle, Layers, MessageCircle, User, LogOut } from "lucide-react";
+import { Home, Search, HelpCircle, Briefcase, Puzzle, Layers, MessageCircle, Settings, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 import logo from "@/assets/logo.jpg";
 
@@ -60,11 +60,11 @@ export const DashboardSidebar: React.FC<SidebarProps> = ({ userRole = "talent" }
       {/* Bottom Actions */}
       <div className="flex flex-col space-y-4">
         <button
-          onClick={() => navigate(`/${userRole}/profile`)}
+          onClick={() => navigate(`/${userRole}/settings`)}
           className="w-10 h-10 flex items-center justify-center text-gray-400 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors"
-          title="Profile"
+          title="settings"
         >
-          <User className="w-5 h-5" />
+          <Settings className="w-5 h-5" />
         </button>
         <button
           onClick={() => navigate("/login")}

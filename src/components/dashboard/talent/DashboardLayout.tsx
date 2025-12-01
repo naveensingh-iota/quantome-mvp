@@ -15,7 +15,6 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   userRole = "talent",
   userName,
   userAvatar,
-  notificationCount,
 }) => {
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -28,7 +27,6 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         <DashboardTopNav
           userName={userName}
           userAvatar={userAvatar}
-          notificationCount={notificationCount}
         />
 
         {/* Content */}
